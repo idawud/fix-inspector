@@ -8,11 +8,15 @@
     Preview FIX messages in a split editor with a table view (Tag | FieldName | Value | Description).
   ]]></description>
 
+  <!-- Specify IDEA compatibility; adjust since-build/until-build to match your IDE if needed -->
+  <idea-version since-build="232" until-build="999.*"/>
+
   <depends>com.intellij.modules.platform</depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <fileEditorProvider implementation="com.fixinspector.intellij.FixFileEditorProvider" />
   </extensions>
+
 
   <!-- FileEditorProvider and actions will be added later -->
 
