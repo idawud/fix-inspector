@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "fields": {
+    "8": { "name": "BeginString", "type": "STRING", "description": "Begin string" },
+    "9": { "name": "BodyLength", "type": "INT" },
+    "35": { "name": "MsgType", "type": "CHAR", "description": "type of message",
+      "enums": {
+        "0": { "name": "Heartbeat", "description": "Is connection alive?" },
+        "D": { "name": "NewOrderSingle" },
+        "8": { "name": "ExecutionReport" }
+      }
+    },
+    "11": { "name": "ClOrdID", "type": "STRING" },
+    "55": { "name": "Symbol", "type": "STRING" },
+    "95": { "name": "RawDataLength", "type": "LENGTH" },
+    "96": { "name": "RawData", "type": "DATA" },
+    "555": { "name": "NoLegs", "type": "NUMINGROUP", "description": "Number of legs" },
+    "600": { "name": "LegSymbol", "type": "STRING" },
+    "601": { "name": "LegSecurityID", "type": "STRING" }
+  }
+}
+

@@ -1,0 +1,47 @@
+Fix Inspector - Implementation Plan
+
+Goal:
+Build an IntelliJ IDEA plugin in Kotlin that previews raw FIX messages as a table (Tag | FieldName | Value | Description). It should auto-detect delimiters, support repeating groups (multi-leg), show enum expansions using a bundled fix-spec.json, be tolerant of malformed input, and expose a split FileEditor preview (raw text + preview pane).
+
+High-level approach:
+- Language: Kotlin
+- Build: Gradle with org.jetbrains.intellij plugin
+- Activation: FileEditorProvider split view (raw text left, preview right)
+- Core components:
+  - FixSpecLoader: load bundled and optional override fix-spec.json (merge strategy)
+  - DelimiterDetector: auto-detect SOH, '|', '^', ';', space, etc.
+  - FixTokenizer: split by delimiter into ordered tokens (tag, rawValue, position)
+  - FixParser: build ParsedMessage, resolve repeating groups, honor RawDataLength/raw data
+  - UI: FixPreviewPanel (TreeTable) to render Tag/FieldName/Value/Description, collapsible groups
+  - Settings: FixPreviewSettings for delimiter override and spec path
+  - Actions: FixPreviewAction (selection preview), FixFileEditorProvider (split editor)
+
+MVP roadmap (increments):
+1) Project scaffolding (Gradle + plugin.xml)
+2) Bundled fix-spec.json + FixSpecLoader
+3) DelimiterDetector + FixTokenizer
+4) FixParser basic (no complex groups yet)
+5) UI preview panel (TreeTable)
+6) Wire FileEditorProvider to show split preview
+7) Add repeating group handling + raw data
+8) Polish, tests, export, settings
+
+Initial files to add now (core parser-only, no IntelliJ API yet):
+- src/main/kotlin/com/fixinspector/core/models.kt
+- src/main/kotlin/com/fixinspector/core/DelimiterDetector.kt
+- src/main/kotlin/com/fixinspector/core/FixTokenizer.kt
+- src/main/kotlin/com/fixinspector/core/FixParser.kt
+- src/main/kotlin/com/fixinspector/core/FixSpecLoader.kt (stub for now)
+- resources/fix-spec.json (minimal example)
+
+Notes / assumptions:
+- We'll start with core parsing logic as pure Kotlin (no IDEA dependencies) to iterate quickly and test locally.
+- Later we'll integrate with IntelliJ SDK (UI components, FileEditorProvider) when core logic is stable.
+- fix-spec.json follows a simple schema with "fields" mapping tag numbers (as strings) to name/type/description/enums.
+
+Next steps after this commit:
+- Run static error check on Kotlin files and iterate until no syntax issues.
+- Implement unit tests for delimiter detection, tokenizer, and parser.
+- Start wiring basic UI + plugin metadata.
+
+

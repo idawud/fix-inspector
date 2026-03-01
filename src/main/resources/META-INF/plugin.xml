@@ -1,0 +1,19 @@
+<idea-plugin>
+  <id>com.fixinspector.plugin</id>
+  <name>FIX Inspector</name>
+  <version>0.1.0</version>
+  <vendor>FixInspector</vendor>
+
+  <description><![CDATA[
+    Preview FIX messages in a split editor with a table view (Tag | FieldName | Value | Description).
+  ]]></description>
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileEditorProvider implementation="com.fixinspector.intellij.FixFileEditorProvider" />
+  </extensions>
+
+  <!-- FileEditorProvider and actions will be added later -->
+
+</idea-plugin>
