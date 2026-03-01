@@ -17,6 +17,17 @@
     </dependencySet>
   </dependencySets>
 
+  <!-- Ensure plugin.xml is available at the ZIP root (IntelliJ installer requires plugin descriptor accessible in the distribution). -->
+  <fileSets>
+    <fileSet>
+      <directory>${project.build.outputDirectory}</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>META-INF/plugin.xml</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
   <!-- If you ever need plugin.xml at the ZIP root (not required because it is inside the plugin JAR),
        you can uncomment and adjust the following fileSet. -->
   <!--
